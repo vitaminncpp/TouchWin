@@ -14,7 +14,7 @@ void App::Go() {
 	
 	GetMyIP(local);
 	UDPSocket recv(ECHO_PORT);
-	recv.Recv((char*)&remote, 4);
+	recv.Recv(reinterpret_cast<char*>(&remote), 4);
 	
 	sender.Bind(remote, SERVER_PORT);
 	sender.SetSourcePort(SERVER_PORT);
@@ -24,7 +24,7 @@ void App::Go() {
 	input.lParam = 555;
 	input.wParam = 856;
 
-	sender.Send((const char*)&input, sizeof(input));
+	sender.Send(reinterpret_cast<const char*>(&input), sizeof(input));
 }
 
 void App::onEvent(UINT msg, LPARAM lParam, WPARAM wPararm)
@@ -33,7 +33,7 @@ void App::onEvent(UINT msg, LPARAM lParam, WPARAM wPararm)
 	input.lParam = lParam;
 	input.wParam = wPararm;
 	if (AllGood) {
-		sender.Send((const char*)&input, sizeof(input));
+		sender.Send(reinterpret_cast<const char*>(&input), sizeof(input));
 	}
 	
 
