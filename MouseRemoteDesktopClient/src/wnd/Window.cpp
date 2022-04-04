@@ -236,8 +236,7 @@ LRESULT Window::HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noe
 		break;
 	
 	case WM_RBUTTONUP:
-	
-		const POINTS pt = MAKEPOINTS(lParam);
+
 		
 		break;
 	
