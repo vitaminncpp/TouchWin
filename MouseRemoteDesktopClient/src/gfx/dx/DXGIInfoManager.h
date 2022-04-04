@@ -1,11 +1,9 @@
-
 #pragma once
 #include <Windows.h>
 #include <wrl.h>
 #include <vector>
 #include <dxgidebug.h>
 #include <string>
-
 class DxgiInfoManager
 {
 public:

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<protocol>
+	<section>
+		<data>
+			Event Type
+		</data>
+		<format>
+			<!-- Format here changes according to architecture
+				 This format is suitable only for AMD64-->
+			<type>
+				INT32
+			</type>
+			<size>
+				4+4=8 (extra 4 are for padding)
+			</size>
+		</format>
+	</section>
+	<section>
+		<data>
+			L Param
+		</data>
+		<format>
+			<type>
+				INT64
+			</type>
+			<size>
+				8 byte
+			</size>
+		</format>
+	</section>
+	<section>
+		<data>
+			W Param
+		</data>
+		<format>
+			<type>
+				INT64
+			</type>
+			<size>
+				8 byte
+			</size>
+		</format>
+	</section>
+</protocol>

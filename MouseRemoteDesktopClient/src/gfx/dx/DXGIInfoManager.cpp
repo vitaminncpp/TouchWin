@@ -1,8 +1,9 @@
 #include "DxgiInfoManager.h"
-#include "..\..\wnd\Window.h"
-#include "..\Graphics.h"
+#include "../../wnd/Window.h"
+#include "../Graphics.h"
 #include <dxgidebug.h>
 #include <memory>
+
 
 #pragma comment(lib, "dxguid.lib")
 

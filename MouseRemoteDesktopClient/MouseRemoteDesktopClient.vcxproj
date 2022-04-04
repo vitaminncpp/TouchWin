@@ -163,6 +163,8 @@
     <ClInclude Include="src\gfx\dx\DXGIInfoManager.h" />
     <ClInclude Include="src\gfx\Graphics.h" />
     <ClInclude Include="src\app\App.h" />
+    <ClInclude Include="src\network\NetworkException.h" />
+    <ClInclude Include="src\network\UDPSocket.h" />
     <ClInclude Include="src\util\Exception.h" />
     <ClInclude Include="src\wnd\Window.h" />
     <ClInclude Include="src\util\Timer.h" />
@@ -172,6 +174,9 @@
     <ClCompile Include="src\gfx\dx\DXGIInfoManager.cpp" />
     <ClCompile Include="src\gfx\Graphics.cpp" />
     <ClCompile Include="src\app\App.cpp" />
+    <ClCompile Include="src\network\Network.cpp" />
+    <ClCompile Include="src\network\NetworkException.cpp" />
+    <ClCompile Include="src\network\UDPSocket.cpp" />
     <ClCompile Include="src\util\Exception.cpp" />
     <ClCompile Include="src\WinMain.cpp" />
     <ClCompile Include="src\wnd\Window.cpp" />
@@ -181,6 +186,9 @@
     <None Include="src\gfx\dx\DXGetErrorDescription.inl" />
     <None Include="src\gfx\dx\DXGetErrorString.inl" />
     <None Include="src\gfx\dx\DXTrace.inl" />
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="config\protocol.xml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

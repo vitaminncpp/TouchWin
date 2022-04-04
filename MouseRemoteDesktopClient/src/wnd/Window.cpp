@@ -71,6 +71,7 @@ Window::Window(int width, int height, const char* name)
 	:
 	width(width),
 	height(height)
+	
 {
 	// calculate window size based on desired client region size
 	RECT wr;
@@ -98,6 +99,7 @@ Window::Window(int width, int height, const char* name)
 	ShowWindow(hWnd, SW_SHOWDEFAULT);
 	// create graphics object
 	pGfx = std::make_unique<Graphics>(hWnd);
+	
 }
 
 Window::~Window()
@@ -125,7 +127,12 @@ std::optional<int> Window::ProcessMessages() noexcept
 			// return optional wrapping int (arg to PostQuitMessage is in wparam) signals quit
 			return (int)msg.wParam;
 		}
+		
 
+#ifndef NDEBUG
+		
+		OutputDebugString((LPCWSTR)std::string((const char*)L"In Window::ProcessMessages()").append(std::to_string(msg.lParam)).append(std::to_string(msg.wParam)).c_str());
+#endif
 		// TranslateMessage will post auxilliary WM_CHAR messages from key msgs
 		TranslateMessage(&msg);
 		DispatchMessage(&msg);
@@ -171,8 +178,15 @@ LRESULT CALLBACK Window::HandleMsgThunk(HWND hWnd, UINT msg, WPARAM wParam, LPAR
 	return pWnd->HandleMsg(hWnd, msg, wParam, lParam);
 }
 
+
+
+
 LRESULT Window::HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noexcept
 {
+
+	app.onEvent(msg,lParam,wParam);
+	
+	//SetTitle(std::string("In Window::ProcessMessages()").append(std::to_string(lParam)).append(std::to_string(wParam)));
 	switch (msg)
 	{
 		
@@ -183,7 +197,6 @@ LRESULT Window::HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noe
 	case WM_KILLFOCUS:
 		
 		break;
-
 		
 	case WM_KEYDOWN:
 		break;
@@ -202,7 +215,13 @@ LRESULT Window::HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noe
 	case WM_MOUSEMOVE:
 	{
 		const POINTS pt = MAKEPOINTS(lParam);
-	
+		
+
+#ifndef NDEBUG
+		//OutputDebugString(L"Window::HandleMsg::WM_MOUSEMOVE");
+#endif // !NDEBUG
+
+		
 		break;
 	}
 	case WM_LBUTTONDOWN:
@@ -228,7 +247,7 @@ LRESULT Window::HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noe
 	default:
 		break;
 	}
-
+	
 	return DefWindowProc(hWnd, msg, wParam, lParam);
 }
 
@@ -279,7 +298,7 @@ const char* Window::HrException::what() const noexcept
 
 const char* Window::HrException::GetType() const noexcept
 {
-	return "Chili Window Exception";
+	return "Window Exception";
 }
 
 HRESULT Window::HrException::GetErrorCode() const noexcept
@@ -295,5 +314,9 @@ std::string Window::HrException::GetErrorDescription() const noexcept
 
 const char* Window::NoGfxException::GetType() const noexcept
 {
-	return "Chili Window Exception [No Graphics]";
+	return "Window Exception [No Graphics]";
+}
+
+App& Window::GetApp() {
+	return app;
 }

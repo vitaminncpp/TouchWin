@@ -1,10 +1,10 @@
+
 #include "Graphics.h"
 #include "dx\dxerr.h"
 #include <sstream>
 #include <d3dcompiler.h>
 #include <cmath>
 #include <DirectXMath.h>
-#include <corecrt_wstring.h>
 
 
 namespace wrl = Microsoft::WRL;

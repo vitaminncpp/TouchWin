@@ -1,18 +1,17 @@
 #pragma once
-#include <Windows.h>
-#include "..\util\Exception.h"
+
+#include "Windows.h"
+#include "../util/Exception.h"
 #include <d3d11.h>
 #include <wrl.h>
 #include <vector>
-#include "dx\DxgiInfoManager.h"
+#include "dx/DxgiInfoManager.h"
 #include <d3dcompiler.h>
 #include <DirectXMath.h>
 #include <memory>
 #include <random>
 
 
-
-#pragma once
 
 // HRESULT hr should exist in the local scope for these macros to work
 

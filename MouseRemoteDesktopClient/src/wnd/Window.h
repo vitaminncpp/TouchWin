@@ -1,12 +1,11 @@
 #pragma once
-
-
+#define UNICODE
 #include <Windows.h>
-#include <string>
+#include "../util/Exception.h"
+#include "../gfx/Graphics.h"
 #include <optional>
-#include "..\gfx\Graphics.h"
-
-
+#include <memory>
+#include "../app/App.h"
 
 #define CHWND_EXCEPT( hr ) Window::HrException((hr) ,__FILE__,__LINE__)
 #define CHWND_LAST_EXCEPT() Window::HrException( GetLastError(),__FILE__,__LINE__ )
@@ -49,7 +48,7 @@ private:
 		~WindowClass();
 		WindowClass(const WindowClass&) = delete;
 		WindowClass& operator=(const WindowClass&) = delete;
-		static constexpr const char* wndClassName = "Chili Direct3D Engine Window";
+		static constexpr const char* wndClassName = "Direct3D Engine Window";
 		static WindowClass wndClass;
 		HINSTANCE hInst;
 	};
@@ -61,6 +60,8 @@ public:
 	void SetTitle(const std::string& title);
 	static std::optional<int> ProcessMessages() noexcept;
 	Graphics& Gfx();
+	App& GetApp();
+	
 private:
 	static LRESULT CALLBACK HandleMsgSetup(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noexcept;
 	static LRESULT CALLBACK HandleMsgThunk(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noexcept;
@@ -70,5 +71,8 @@ private:
 	int width;
 	int height;
 	HWND hWnd;
+	App app;
+	
 	std::unique_ptr<Graphics> pGfx;
+	
 };
