@@ -1,16 +1,5 @@
-
-
-#include <Windows.h>
+#include "Network.h"
 #include <winsock.h>
-#pragma comment(lib, "Ws2_32.lib")
-#include <iostream>
-
-
-struct IPv4
-{
-    unsigned char s_b1, s_b2, s_b3, s_b4;
-};
-
 
 
 

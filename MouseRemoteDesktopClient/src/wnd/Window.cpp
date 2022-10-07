@@ -42,7 +42,7 @@ Window::WindowClass::WindowClass() noexcept
 	wc.hCursor = nullptr;
 	wc.hbrBackground = nullptr;
 	wc.lpszMenuName = nullptr;
-	wc.lpszClassName =(LPCWSTR) GetName();
+	wc.lpszClassName =(LPCSTR) GetName();
 	wc.hIconSm = static_cast<HICON>(LoadImage(
 		GetInstance(), MAKEINTRESOURCE(IDI_ICON1),
 		IMAGE_ICON, 16, 16, 0
@@ -52,7 +52,7 @@ Window::WindowClass::WindowClass() noexcept
 
 Window::WindowClass::~WindowClass()
 {
-	UnregisterClass((LPCWSTR)wndClassName, GetInstance());
+	UnregisterClass((LPCSTR)wndClassName, GetInstance());
 }
 
 const char* Window::WindowClass::GetName() noexcept
@@ -69,6 +69,8 @@ HINSTANCE Window::WindowClass::GetInstance() noexcept
 // Window Stuff
 Window::Window(int width, int height, const char* name)
 	:
+
+	app(width, height),
 	width(width),
 	height(height)
 	
@@ -85,7 +87,7 @@ Window::Window(int width, int height, const char* name)
 	}
 	// create window & get hWnd
 	hWnd = CreateWindow(
-		(LPCWSTR)WindowClass::GetName(), (LPCWSTR)name,
+		(LPCSTR)WindowClass::GetName(), (LPCSTR)name,
 		WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU,
 		CW_USEDEFAULT, CW_USEDEFAULT, wr.right - wr.left, wr.bottom - wr.top,
 		nullptr, nullptr, WindowClass::GetInstance(), this
@@ -109,7 +111,7 @@ Window::~Window()
 
 void Window::SetTitle(const std::string& title)
 {
-	if (SetWindowText(hWnd, (LPCWSTR)title.c_str()) == 0)
+	if (SetWindowText(hWnd, (LPCSTR)title.c_str()) == 0)
 	{
 		throw CHWND_LAST_EXCEPT();
 	}
@@ -131,7 +133,7 @@ std::optional<int> Window::ProcessMessages() noexcept
 
 #ifndef NDEBUG
 		
-		OutputDebugString((LPCWSTR)std::string((const char*)L"In Window::ProcessMessages()").append(std::to_string(msg.lParam)).append(std::to_string(msg.wParam)).c_str());
+		OutputDebugString((LPCSTR)std::string((const char*)L"In Window::ProcessMessages()").append(std::to_string(msg.lParam)).append(std::to_string(msg.wParam)).c_str());
 #endif
 		// TranslateMessage will post auxilliary WM_CHAR messages from key msgs
 		TranslateMessage(&msg);
@@ -183,8 +185,7 @@ LRESULT CALLBACK Window::HandleMsgThunk(HWND hWnd, UINT msg, WPARAM wParam, LPAR
 
 LRESULT Window::HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noexcept
 {
-
-	app.onEvent(msg,lParam,wParam);
+	app.OnEvent(msg,lParam,wParam);
 	
 	//SetTitle(std::string("In Window::ProcessMessages()").append(std::to_string(lParam)).append(std::to_string(wParam)));
 	switch (msg)
@@ -214,7 +215,6 @@ LRESULT Window::HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noe
 	
 	case WM_MOUSEMOVE:
 	{
-		const POINTS pt = MAKEPOINTS(lParam);
 		
 
 #ifndef NDEBUG
@@ -260,7 +260,7 @@ std::string Window::WndException::TranslateErrorCode(HRESULT hr) noexcept
 		FORMAT_MESSAGE_ALLOCATE_BUFFER |
 		FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
 		nullptr, hr, MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
-		reinterpret_cast<LPWSTR>(&pMsgBuf), 0, nullptr
+		reinterpret_cast<LPSTR>(&pMsgBuf), 0, nullptr
 	);
 	// 0 string length returned indicates a failure
 	if (nMsgLen == 0)

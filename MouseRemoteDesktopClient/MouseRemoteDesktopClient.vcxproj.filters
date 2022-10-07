@@ -42,6 +42,9 @@
     <ClInclude Include="src\network\UDPSocket.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\network\Network.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\wnd\Window.cpp">
@@ -71,10 +74,13 @@
     <ClCompile Include="src\network\NetworkException.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\network\UDPSocket.cpp">
+    <ClCompile Include="src\network\Network.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\network\Network.cpp">
+    <ClCompile Include="src\network\UDPReceiver.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\network\UDPSender.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

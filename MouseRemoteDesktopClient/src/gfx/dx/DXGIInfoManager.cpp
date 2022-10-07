@@ -1,5 +1,5 @@
 #include "DxgiInfoManager.h"
-#include "../../wnd/Window.h"
+#include "..\..\wnd\Window.h"
 #include "../Graphics.h"
 #include <dxgidebug.h>
 #include <memory>
@@ -8,13 +8,14 @@
 #pragma comment(lib, "dxguid.lib")
 
 
+
 DxgiInfoManager::DxgiInfoManager()
 {
 	// define function signature of DXGIGetDebugInterface
 	typedef HRESULT(WINAPI* DXGIGetDebugInterface)(REFIID, void**);
 
 	// load the dll that contains the function DXGIGetDebugInterface
-	const auto hModDxgiDebug = LoadLibraryEx(L"dxgidebug.dll", nullptr, LOAD_LIBRARY_SEARCH_SYSTEM32);
+	 auto hModDxgiDebug = LoadLibraryEx("dxgidebug.dll", nullptr, LOAD_LIBRARY_SEARCH_SYSTEM32);
 	if (hModDxgiDebug == nullptr)
 	{
 		throw CHWND_LAST_EXCEPT();

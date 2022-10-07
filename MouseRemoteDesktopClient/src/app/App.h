@@ -8,34 +8,32 @@
 #define SERVER_PORT 5559
 #define ECHO_PORT 5560
 
-struct SendInput {
-	UINT msg;
-	LPARAM lParam;
-	WPARAM wParam;
-};
-
-
 class App
 {
 public:
 	App();
-	
+	App(int, int);
 
 	~App();
+	
 	App(App& app) = delete;
 	void Go();
-	void onEvent(UINT msg, LPARAM lParam, WPARAM wPararm);
+	void OnEvent(UINT msg, LPARAM lParam, WPARAM wPararm);
 
 
 	void operator =(App& app) = delete;
 
 
+
 private:
-	
+
+	INPUT input;
 	struct IPv4 local;
-	struct SendInput input;
-	UDPSocket sender;
+	UDPSender sender;
 	struct IPv4 remote;
 	bool AllGood = false;
-
+	int width;
+	int height;
+	char msg[512];
+	void MakeJSON();
 };

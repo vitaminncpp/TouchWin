@@ -206,7 +206,7 @@ std::string Graphics::HrException::GetErrorString() const noexcept
 std::string Graphics::HrException::GetErrorDescription() const noexcept
 {
 	char buf[512];
-	DXGetErrorDescription(hr, (WCHAR*)buf, sizeof(buf));
+	DXGetErrorDescription(hr, (CHAR*)buf, sizeof(buf));
 	return buf;
 }
 

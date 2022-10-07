@@ -1,5 +1,4 @@
 #pragma once
-#define UNICODE
 #include <Windows.h>
 #include "../util/Exception.h"
 #include "../gfx/Graphics.h"
